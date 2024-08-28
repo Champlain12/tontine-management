@@ -1,0 +1,70 @@
+<?php
+       session_start();
+      if(isset($_POST['mise'])){
+       /* $NomFond=$_POST['nom_fond'];
+        $ReglesFond=$_POST['règle_fond'];
+        $ObjectifFond=$_POST['objectif_fond'];
+        $StatutFond=$_POST['statut_fond'];
+        $nomTontine=$_POST['nom_tontine'];*/
+        //etape de connexion a la base de données 
+        $servername="localhost";
+        $username="root";
+        $password="";
+        $dbname="tp_inf2212_tontine";
+       //connexion au serveur local et a la base de donne
+        $connect=mysqli_connect($servername,$username,$password,$dbname) or die('echec serveur'.mysqli_Error());
+        //connexion a la base de données
+        $req="SELECT* FROM fond  WHERE IdFond='1'";
+        $envoi=mysqli_query($connect,$req) or die('echec mise a jour'.mysqli_error());
+          if(isset($_POST['mise'])){
+            $servername="localhost";
+            $username="root";
+            $password="";
+            $dbname="tp_inf2212_tontine";
+           //connexion au serveur local et a la base de donne
+            $connect=mysqli_connect($servername,$username,$password,$dbname) or die('echec serveur'.mysqli_Error());
+            //connexion a la base de données
+            $req="SELECT* FROM fond  WHERE IdFond='1'";
+
+            $envoi=mysqli_query($connect,$req) or die('echec mise a jour'.mysqli_error());
+            
+            while($row=mysqli_fetch_array($envoi)){
+              echo"<form method=\"POST\">
+              <div>
+                <input type=\"text\" name=\"nom_fond\" id=\"nom_fond\" value=\"".$row['NomFond']."\" required/><br>
+                <input type=\"text\" name=\"règle_fond\" id=\"règle_fond\" value=\"".$row['ReglesFond']."\" required/><br>
+                <input type=\"text\" name=\"objectif_fond\" id=\"objectif_fond\" value=\"".$row['ObjectifFond']."\" required/><br>
+                <input type=\"text\" name=\"statut_fond\" id=\"statut_fond\" value=\"".$row['StatutFond']."\"  required/><br>
+                <input type=\"text\" name=\"nom_tontine\" id=\"nom_tontine\" value=\"".$row['NomTontine']."\"required/><br>
+                <input type=\"submit\" name=\"soumettre\" id=\"soumettre\" value=\"soumettre\">
+              </div>
+            </form>";
+            }
+            
+          }
+
+        /*
+        $miseajour="UPDATE fond
+            SET 
+                NomFond='$NomFond'
+                ReglesFond='$ReglesFond',
+                ObjectifFond='$ObjectifFond',
+                StatutFond='$StatutFond',
+                NomTontine='$nomTontine'
+            WHERE IdFond='1'";
+            echo"effectuer avec succes la mise a jour";*/
+       }
+       if(isset($_POST['soumettre'])){
+        $servername="localhost";
+        $username="root";
+        $password="";
+        $dbname="tp_inf2212_tontine";
+       //connexion au serveur local et a la base de donne
+        $connect=mysqli_connect($servername,$username,$password,$dbname) or die('echec serveur'.mysqli_Error());
+        $req="INSERT INTO fond(NomFond,ReglesFond,ObjectifFond,StatutFond,NomTontine) VALUES('$NomFond','$ReglesFond','$ObjectifFond','$StatutFond','$nomTontine')";
+        $envoi=mysqli_query($connect,$req)or die('echec querry'.mysqli_Error());
+        echo"mise a jour effectuer avec success";
+      }else{
+        echo"error mise a jour";
+      }
+    ?>
